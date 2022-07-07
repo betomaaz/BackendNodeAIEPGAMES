@@ -11,22 +11,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const game_model_1 = require("../models/game.model");
-const gameRoute = (0, express_1.Router)();
-gameRoute.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const games = yield game_model_1.Game.find().exec();
+const gameRoutes = (0, express_1.Router)();
+gameRoutes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const games = yield game_model_1.Games.find().exec();
     res.json({
         ok: true,
         games
     });
 }));
-gameRoute.post('/', (req, res) => {
+gameRoutes.post('/', (req, res) => {
     const game = {
         titulo: req.body.titulo,
         descripcion: req.body.descripcion,
         ano: req.body.ano,
-        portada: req.body.portada
+        portada: req.body.portada,
+        genres: req.body.genres
     };
-    game_model_1.Game.create(game)
+    const arrGenres = game.genres.split(",");
+    game.genres = arrGenres;
+    game_model_1.Games.create(game)
         .then(gameDb => {
         res.json({
             ok: true,
@@ -39,4 +42,4 @@ gameRoute.post('/', (req, res) => {
         });
     });
 });
-exports.default = gameRoute;
+exports.default = gameRoutes;

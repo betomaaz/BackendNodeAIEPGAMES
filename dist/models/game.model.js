@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Game = void 0;
+exports.Games = void 0;
 const mongoose_1 = require("mongoose");
 const gameSchema = new mongoose_1.Schema({
     titulo: {
@@ -18,6 +18,10 @@ const gameSchema = new mongoose_1.Schema({
     portada: {
         type: String,
         required: [true, 'La portada es requerida']
-    }
+    },
+    genres: [{
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: 'genres'
+        }]
 });
-exports.Game = (0, mongoose_1.model)('Games', gameSchema);
+exports.Games = (0, mongoose_1.model)('Games', gameSchema);

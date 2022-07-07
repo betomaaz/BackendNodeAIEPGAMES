@@ -4,7 +4,8 @@ import Server from "./classes/server";
 import defaultRoutes from "./routes/default.routes";
 import userRoutes from "./routes/user.routes";
 import cors from 'cors';
-import gameRoute from "./routes/game.routes";
+import genreRoutes from "./routes/genre.routes";
+import gameRoutes from "./routes/game.routes";
 
 const server = new Server();
 
@@ -13,7 +14,9 @@ server.app.use(bodyParser.urlencoded({extended:true}));
 server.app.use(bodyParser.json());
 server.app.use('/',defaultRoutes);
 server.app.use('/user',userRoutes);
-server.app.use('/game',gameRoute);
+server.app.use('/game',gameRoutes);
+server.app.use('/genre',genreRoutes);
+
 
 mongoose.connect('mongodb://localhost:27017/bdaiepgames',(error)=>{
     if(error){

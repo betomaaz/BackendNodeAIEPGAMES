@@ -1,26 +1,31 @@
 import { request, Request, Response, Router } from "express";
-import { Game } from "../models/game.model";
+import { Games } from "../models/game.model";
 
-const gameRoute = Router();
+const gameRoutes = Router();
 
-gameRoute.get('/',async (req:Request,res:Response)=>{
-    const games = await Game.find().exec();
+gameRoutes.get('/',async (req:Request,res:Response)=>{
+    const games = await Games.find().exec();
     res.json({
         ok:true,
         games
     })
 })
 
-gameRoute.post('/',(req:Request,res:Response)=>{
+gameRoutes.post('/',(req:Request,res:Response)=>{
 
     const game = {
         titulo : req.body.titulo,
         descripcion : req.body.descripcion,
         ano : req.body.ano,
-        portada : req.body.portada
+        portada : req.body.portada,
+        genres : req.body.genres
     }
 
-    Game.create(game)
+    const arrGenres = game.genres.split(",");
+
+    game.genres = arrGenres;
+
+    Games.create(game)
         .then(gameDb=>{
             res.json({
                 ok:true,
@@ -36,4 +41,4 @@ gameRoute.post('/',(req:Request,res:Response)=>{
     
 })
 
-export default gameRoute;
+export default gameRoutes;

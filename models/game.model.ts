@@ -17,7 +17,11 @@ const gameSchema = new Schema({
     portada:{
         type:String,
         required : [true,'La portada es requerida']
-    }
+    },
+    genres:[{
+        type :Schema.Types.ObjectId,
+        ref : 'genres'
+    }]
 });
 
 interface IGame extends Document{
@@ -27,4 +31,4 @@ interface IGame extends Document{
     portada:string
 }
 
-export const Game = model<IGame>('Games',gameSchema)
+export const Games = model<IGame>('Games',gameSchema)
