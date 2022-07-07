@@ -9,7 +9,7 @@ const genreSchema = new mongoose_1.Schema({
     },
     games: [{
             type: mongoose_1.Schema.Types.ObjectId,
-            ref: 'games'
+            ref: 'Games'
         }]
 });
 exports.Genres = (0, mongoose_1.model)('Genres', genreSchema);

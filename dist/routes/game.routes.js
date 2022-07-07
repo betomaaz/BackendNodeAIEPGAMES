@@ -13,7 +13,7 @@ const express_1 = require("express");
 const game_model_1 = require("../models/game.model");
 const gameRoutes = (0, express_1.Router)();
 gameRoutes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const games = yield game_model_1.Games.find().exec();
+    const games = yield game_model_1.Games.find().populate('genres').exec();
     res.json({
         ok: true,
         games

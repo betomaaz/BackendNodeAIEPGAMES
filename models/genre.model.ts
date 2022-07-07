@@ -8,7 +8,7 @@ const genreSchema = new Schema({
     },
     games : [{
         type: Schema.Types.ObjectId,
-        ref: 'games'
+        ref: 'Games'
     }]
 });
 

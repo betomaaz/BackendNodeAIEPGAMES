@@ -4,7 +4,7 @@ import { Games } from "../models/game.model";
 const gameRoutes = Router();
 
 gameRoutes.get('/',async (req:Request,res:Response)=>{
-    const games = await Games.find().exec();
+    const games = await Games.find().populate('genres').exec();
     res.json({
         ok:true,
         games

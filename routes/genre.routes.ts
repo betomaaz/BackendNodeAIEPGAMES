@@ -3,6 +3,14 @@ import { Genres } from "../models/genre.model";
 
 const genreRoutes = Router();
 
+genreRoutes.get('/', async (req:Request,res:Response)=>{
+    const genre = await Genres.find().exec();
+    res.json({
+        ok:true,
+        genre
+    })
+});
+
 genreRoutes.post('/',(req:Request,res:Response)=>{
 
     const genre = {

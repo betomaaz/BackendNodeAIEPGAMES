@@ -20,7 +20,7 @@ const gameSchema = new Schema({
     },
     genres:[{
         type :Schema.Types.ObjectId,
-        ref : 'genres'
+        ref : 'Genres'
     }]
 });
 

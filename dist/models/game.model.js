@@ -21,7 +21,7 @@ const gameSchema = new mongoose_1.Schema({
     },
     genres: [{
             type: mongoose_1.Schema.Types.ObjectId,
-            ref: 'genres'
+            ref: 'Genres'
         }]
 });
 exports.Games = (0, mongoose_1.model)('Games', gameSchema);
