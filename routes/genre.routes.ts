@@ -11,6 +11,31 @@ genreRoutes.get('/', async (req:Request,res:Response)=>{
     })
 });
 
+genreRoutes.get('/byid/:id', async (req:Request,res:Response)=>{
+    const id = req.params.id;
+    if(!id){
+        res.json({
+            ok:false,
+            error:"Id no existe"})
+        return;
+    }
+
+    const genreDb = await Genres.findById(id).exec();
+    
+    if(!genreDb){
+        res.json({
+            ok:false,
+            error:"El género no existe"})
+        return;
+    }
+
+    res.json({
+        ok:true,
+        genreDb})
+    
+    return;
+});
+
 genreRoutes.post('/',(req:Request,res:Response)=>{
 
     const genre = {
@@ -28,6 +53,30 @@ genreRoutes.post('/',(req:Request,res:Response)=>{
             ok:false,
             error:err
         })
+    })
+})
+
+genreRoutes.put('/',(req:Request,res:Response)=>{
+    const genreId = req.body._id;
+    const genre = {
+        name : req.body.name
+    }
+
+    Genres.findByIdAndUpdate(genreId,genre)
+        .then(genreDb=>{
+            res.json({
+                ok:true,
+                genreDb
+            })
+        })
+});
+
+genreRoutes.delete('/', async (req:Request,res:Response)=>{
+    const id = req.query.id;
+    await Genres.findByIdAndDelete(id);
+    res.json({
+        ok:true,
+        id
     })
 })
 

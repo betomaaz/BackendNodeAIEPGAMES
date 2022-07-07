@@ -19,6 +19,29 @@ genreRoutes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* (
         genre
     });
 }));
+genreRoutes.get('/byid/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    if (!id) {
+        res.json({
+            ok: false,
+            error: "Id no existe"
+        });
+        return;
+    }
+    const genreDb = yield genre_model_1.Genres.findById(id).exec();
+    if (!genreDb) {
+        res.json({
+            ok: false,
+            error: "El género no existe"
+        });
+        return;
+    }
+    res.json({
+        ok: true,
+        genreDb
+    });
+    return;
+}));
 genreRoutes.post('/', (req, res) => {
     const genre = {
         name: req.body.name
@@ -36,4 +59,25 @@ genreRoutes.post('/', (req, res) => {
         });
     });
 });
+genreRoutes.put('/', (req, res) => {
+    const genreId = req.body._id;
+    const genre = {
+        name: req.body.name
+    };
+    genre_model_1.Genres.findByIdAndUpdate(genreId, genre)
+        .then(genreDb => {
+        res.json({
+            ok: true,
+            genreDb
+        });
+    });
+});
+genreRoutes.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.query.id;
+    yield genre_model_1.Genres.findByIdAndDelete(id);
+    res.json({
+        ok: true,
+        id
+    });
+}));
 exports.default = genreRoutes;
